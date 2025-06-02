@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerador de Senha webPay</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .senha {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Gerador de Senha webPay</h1>
+    <button onclick="gerarSenha()">Gerar</button>
+    <div class="senha" id="senha"></div>
+</div>
+
+<div class="footer">
+    Criado por Lucas Dantas
+</div>
+
+<script>
+    function gerarSenha() {
+        const agora = new Date();
+        let ano = agora.getFullYear();
+        let mes = agora.getMonth() + 1; // Janeiro é 0
+        let dia = agora.getDate();
+        const hora = agora.getHours();
+
+        // Se for 21h ou mais, adiciona um dia
+        if (hora >= 21) {
+            const novaData = new Date(ano, agora.getMonth(), dia + 1);
+            ano = novaData.getFullYear();
+            mes = novaData.getMonth() + 1;
+            dia = novaData.getDate();
+        }
+
+        const resultado = ano - mes - dia - hora;
+
+        document.getElementById('senha').innerText = `Senha: ${resultado}`;
+    }
+</script>
+
+</body>
+</html>
