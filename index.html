@@ -41,7 +41,7 @@
         }
     </style>
 </head>
-<body onload="verificarEstado()">
+<body onload="verificarEstado(); iniciarRelogio();">
 
 <div class="container">
     <h1>Gerador de Senha</h1>
@@ -51,6 +51,7 @@
 </div>
 
 <div class="footer">
+    <span id="dataHora"></span><br>
     Desenvolvido por Lucas Dantas
 </div>
 
@@ -58,7 +59,7 @@
     function gerarSenha() {
         const agora = new Date();
         const ano = agora.getFullYear();
-        const mes = agora.getMonth() + 1; // Janeiro é 0
+        const mes = agora.getMonth() + 1;
         const dia = agora.getDate();
         const hora = agora.getHours();
 
@@ -81,19 +82,32 @@
         const estado = localStorage.getItem('senhaGerada');
 
         if (estado === 'true') {
-            // Se já estava gerada, recarrega a página e mantém mostrando
             location.reload();
         } else {
-            // Gera a senha e marca como gerada
             gerarSenha();
             localStorage.setItem('senhaGerada', 'true');
         }
     }
 
-    // Resetar estado quando usuário dá F5 ou entra novamente na página
     window.addEventListener('beforeunload', function () {
         localStorage.removeItem('senhaGerada');
     });
+
+    function iniciarRelogio() {
+        setInterval(() => {
+            const agora = new Date();
+            const dia = String(agora.getDate()).padStart(2, '0');
+            const mes = String(agora.getMonth() + 1).padStart(2, '0');
+            const ano = agora.getFullYear();
+            const horas = String(agora.getHours()).padStart(2, '0');
+            const minutos = String(agora.getMinutes()).padStart(2, '0');
+            const segundos = String(agora.getSeconds()).padStart(2, '0');
+
+            const dataHoraFormatada = `${dia}/${mes}/${ano} ${horas}:${minutos}:${segundos}`;
+
+            document.getElementById('dataHora').innerText = dataHoraFormatada;
+        }, 1000);
+    }
 </script>
 
 </body>
