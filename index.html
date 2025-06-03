@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Gerador de Senha webPostoPay</title>
+    <title>Gerador de Senha</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,41 +34,23 @@
             font-size: 24px;
             color: #333;
         }
-        .footer {
-            margin-top: 50px;
-            font-size: 14px;
-            color: #777;
-        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>Gerador de Senha</h1>
-    <h1>webPostoPay</h1>
-    <button onclick="gerarSenha()">Gerar</button>
+    <button onclick="gerarSenha()">Gerar Senha</button>
     <div class="senha" id="senha"></div>
-</div>
-
-<div class="footer">
-    Criado por Lucas Dantas
 </div>
 
 <script>
     function gerarSenha() {
         const agora = new Date();
-        let ano = agora.getFullYear();
-        let mes = agora.getMonth() + 1; // Janeiro é 0
-        let dia = agora.getDate();
+        const ano = agora.getFullYear();
+        const mes = agora.getMonth() + 1; // Janeiro é 0
+        const dia = agora.getDate();
         const hora = agora.getHours();
-
-        // Se for 21h ou mais, adiciona um dia
-        if (hora >= 21) {
-            const novaData = new Date(ano, agora.getMonth(), dia + 1);
-            ano = novaData.getFullYear();
-            mes = novaData.getMonth() + 1;
-            dia = novaData.getDate();
-        }
 
         const resultado = ano - mes - dia - hora;
 
