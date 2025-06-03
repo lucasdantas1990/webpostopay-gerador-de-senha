@@ -41,12 +41,12 @@
         }
     </style>
 </head>
-<body>
+<body onload="gerarSenhaAutomatico()">
 
 <div class="container">
     <h1>Gerador de Senha</h1>
     <h1>webPostoPay</h1>
-    <button onclick="gerarSenha()">Gerar Senha</button>
+    <button onclick="botaoAcao()">Gerar Senha</button>
     <div class="senha" id="senha"></div>
 </div>
 
@@ -57,20 +57,23 @@
 <script>
     let contadorClique = 0;
 
-    function gerarSenha() {
+    function gerarSenhaAutomatico() {
+        const agora = new Date();
+        const ano = agora.getFullYear();
+        const mes = agora.getMonth() + 1; // Janeiro é 0
+        const dia = agora.getDate();
+        const hora = agora.getHours();
+
+        const resultado = ano - mes - dia - hora;
+
+        document.getElementById('senha').innerText = resultado;
+    }
+
+    function botaoAcao() {
         contadorClique++;
 
         if (contadorClique === 1) {
-            const agora = new Date();
-            const ano = agora.getFullYear();
-            const mes = agora.getMonth() + 1; // Janeiro é 0
-            const dia = agora.getDate();
-            const hora = agora.getHours();
-
-            const resultado = ano - mes - dia - hora;
-
-            document.getElementById('senha').innerText = resultado;
-        } else {
+            // No primeiro clique, só recarrega (a senha já foi exibida no carregamento)
             location.reload();
         }
     }
