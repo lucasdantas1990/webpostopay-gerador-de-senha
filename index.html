@@ -55,16 +55,24 @@
 </div>
 
 <script>
+    let contadorClique = 0;
+
     function gerarSenha() {
-        const agora = new Date();
-        const ano = agora.getFullYear();
-        const mes = agora.getMonth() + 1; // Janeiro é 0
-        const dia = agora.getDate();
-        const hora = agora.getHours();
+        contadorClique++;
 
-        const resultado = ano - mes - dia - hora;
+        if (contadorClique === 1) {
+            const agora = new Date();
+            const ano = agora.getFullYear();
+            const mes = agora.getMonth() + 1; // Janeiro é 0
+            const dia = agora.getDate();
+            const hora = agora.getHours();
 
-        document.getElementById('senha').innerText = resultado;
+            const resultado = ano - mes - dia - hora;
+
+            document.getElementById('senha').innerText = resultado;
+        } else {
+            location.reload();
+        }
     }
 </script>
 
