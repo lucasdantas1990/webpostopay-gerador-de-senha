@@ -41,7 +41,7 @@
         }
     </style>
 </head>
-<body onload="gerarSenhaAutomatico()">
+<body onload="verificarEstado()">
 
 <div class="container">
     <h1>Gerador de Senha</h1>
@@ -55,9 +55,7 @@
 </div>
 
 <script>
-    let contadorClique = 0;
-
-    function gerarSenhaAutomatico() {
+    function gerarSenha() {
         const agora = new Date();
         const ano = agora.getFullYear();
         const mes = agora.getMonth() + 1; // Janeiro é 0
@@ -69,14 +67,33 @@
         document.getElementById('senha').innerText = resultado;
     }
 
-    function botaoAcao() {
-        contadorClique++;
+    function verificarEstado() {
+        const estado = localStorage.getItem('senhaGerada');
 
-        if (contadorClique === 1) {
-            // No primeiro clique, só recarrega (a senha já foi exibida no carregamento)
-            location.reload();
+        if (estado === 'true') {
+            gerarSenha();
+        } else {
+            document.getElementById('senha').innerText = '';
         }
     }
+
+    function botaoAcao() {
+        const estado = localStorage.getItem('senhaGerada');
+
+        if (estado === 'true') {
+            // Se já estava gerada, recarrega a página e mantém mostrando
+            location.reload();
+        } else {
+            // Gera a senha e marca como gerada
+            gerarSenha();
+            localStorage.setItem('senhaGerada', 'true');
+        }
+    }
+
+    // Resetar estado quando usuário dá F5 ou entra novamente na página
+    window.addEventListener('beforeunload', function () {
+        localStorage.removeItem('senhaGerada');
+    });
 </script>
 
 </body>
